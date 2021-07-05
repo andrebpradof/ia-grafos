@@ -5,7 +5,7 @@ import math
 import numpy as np
 
 
-class Aux_vertice:
+class Euclidianas:
     def __init__(self,id,distancia):
         self.id = id
         self.distancia = distancia
@@ -34,51 +34,28 @@ def main():
         vertice = Vertice(i, x, y)
         grafo.novo_Vertice(vertice)
     
-    matrizEuclidianas = np.zeros((numVertices,numVertices))
+    matrizEuclidianas = np.empty((numVertices,numVertices), dtype=object)
+
 
     for i in range(numVertices):
         vertice_i = grafo.busca_Vertice(i)
-        for j in range(i, numVertices):
+        for j in range(numVertices):
             if i == j:
-                matrizEuclidianas[i][j] = np.inf
+                matrizEuclidianas[i][j] = Euclidianas(j,np.inf)
             else:
                 vertice_j = grafo.busca_Vertice(j)
-                matrizEuclidianas[i][j] = math.sqrt(math.pow(vertice_i.getX() - vertice_j.getX(),2) + math.pow(vertice_i.getY() - vertice_j.getY(),2))
-
-    menor_valores = np.empty((numVertices,k), dtype=object)
+                valor = math.sqrt(math.pow(vertice_i.getX() - vertice_j.getX(),2) + math.pow(vertice_i.getY() - vertice_j.getY(),2))
+                matrizEuclidianas[i][j] = Euclidianas(j,valor)
 
     for i in range(numVertices):
-        menor_valores[i]
-        for l in range(k):
-            menor_valores[i][l] = Aux_vertice(-1, np.inf)
+        matrizEuclidianas[i] = sorted(matrizEuclidianas[i], key=Euclidianas.getDistancia)
+        
+        for j in range(k):
+            grafo.nova_Aresta(i, matrizEuclidianas[i][j].getId(), matrizEuclidianas[i][j].getDistancia())
 
-    
-    for i in range(numVertices):
-        for j in range(numVertices):
-            
-            if(i > j):
-                i_aux = j
-                j_aux = i
-            else:
-                i_aux = i
-                j_aux = j
+    #grafo.imprime_grafo()
 
-            print('Ordem:', i_aux, j_aux)
-            # ///////
-            for l in range(k):
-                aux_dis = matrizEuclidianas[i_aux][j_aux]
-                #print(i, aux_dis)
-                if(aux_dis < menor_valores[i][l].getDistancia()):
-                    print(i, aux_dis)
-                    menor_valores[i][l].setId(j_aux)
-                    menor_valores[i][l].setDistancia(aux_dis)
-                    break
-            # ////////
-
-        for l in range(k):
-            grafo.nova_Aresta(i,menor_valores[i][l].getId(), menor_valores[i][l].getDistancia())
-    
-    grafo.imprime_grafo()
+    grafo.bfs(grafo.busca_Vertice(1))
 
 
 
