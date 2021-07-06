@@ -28,12 +28,12 @@ class Euclidianas:
         self.id = id
 
 def main():
-    numVertices = 50
+    numVertices = 10
     k = 3
 
     grafo = Grafo()
 
-    random.seed(5)
+    random.seed(9)
 
     for i in range(numVertices):
         x = random.randrange(1,numVertices)
@@ -63,10 +63,13 @@ def main():
                 grafo.nova_Aresta(matrizEuclidianas[i][j].getId(), i, matrizEuclidianas[i][j].getDistancia())
 
 
-    grafo.imprime_grafo()
-    print()
+    #grafo.imprime_grafo()
+    #print()
 
-    BuscaBestFirst().busca(grafo, 1, 6)
+    #BuscaBestFirst().busca(grafo, 1, 6)
+
+    print(BuscaLargura.start(grafo,1,5))
+    print(BuscaProfundidade().start(grafo, 1,5))
 
 if __name__ == '__main__':
     main()

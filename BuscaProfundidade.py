@@ -1,24 +1,26 @@
-def busca_Profundidade(self, grafo, origem, destino):
-        """Executa a busca em profundidade a partir do vértice start
-        Args:
-            start (int): vértice start
-        Returns:
-            list: lista com a ordem de vértices visitados 
-        """
-        visitados = []
-        visitados.append(origem)
-        pilha = [origem]
-        
-        if origem != destino:
-            while pilha:
-                u = pilha.pop()
 
-                #if u not in visitados:
-                #    visitados.append(u)
+from collections import deque
 
-                for v in grafo[u]:
-                    if v not in visitados:
-                        visitados.append(v)
-                        pilha.append(v)
-                    if v == destino:
-                        return visitados
+class BuscaProfundidade():
+    def __init__(self):
+        self.visitados = []
+        self.caminho = []
+
+    def DFS(self, grafo, inicio, fim):
+
+        self.caminho.append(inicio)
+        self.visitados.append(inicio)
+
+        if inicio == fim:
+            return self.caminho
+        else:
+            for j in grafo.busca_Vertice(inicio).getListaArestas():
+                nodo = j.getDestino().getId()
+                if nodo not in self.visitados:
+                    volta = self.DFS(grafo, nodo, fim)
+                    if volta is not None:
+                        return self.caminho
+        self.caminho.pop()
+
+    def start(self, grafo, inicio, fim):
+        return self.DFS(grafo, inicio, fim)
