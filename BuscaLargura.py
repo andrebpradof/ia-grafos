@@ -1,4 +1,8 @@
-def bfs(self, inicio, fim):
+from collections import deque
+
+class BuscaLargura:
+
+    def start(grafo, inicio, fim):
         fila = deque()
         fila.append(inicio)
         visitados = []
@@ -8,15 +12,13 @@ def bfs(self, inicio, fim):
         if inicio != fim:
             while len(fila) > 0:
                 u = fila.popleft()
-                for a in self.busca_Vertice(u).getListaArestas():
+                for a in grafo.busca_Vertice(u).getListaArestas():
                     v = a.getDestino().getId()
                     if v not in visitados:
                         visitados.append(v)
                         if v == fim:
-                            print('fim')
                             return visitados
-                print('>>', fila)
-            print('fim 2')
-            return visitados
+                        fila.append(v); 
+            return -1
         else:
             return visitados
