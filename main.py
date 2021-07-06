@@ -1,5 +1,10 @@
 from Vertice import Vertice
 from Grafo import Grafo
+from BuscaLargura import BuscaLargura
+from BuscaProfundidade import BuscaProfundidade
+from BuscaBestFirst import BuscaBestFirst
+from BuscaA import BuscaA
+from BuscaAStar import BuscaAStar
 import random
 import math
 import numpy as np
