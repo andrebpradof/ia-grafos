@@ -28,6 +28,8 @@ def main():
 
     grafo = Grafo()
 
+    random.seed(7)
+
     for i in range(numVertices):
         x = random.randrange(1,numVertices)
         y = random.randrange(1,numVertices)
@@ -49,15 +51,16 @@ def main():
 
     for i in range(numVertices):
         matrizEuclidianas[i] = sorted(matrizEuclidianas[i], key=Euclidianas.getDistancia)
-        
         for j in range(k):
-            grafo.nova_Aresta(i, matrizEuclidianas[i][j].getId(), matrizEuclidianas[i][j].getDistancia())
+            if(grafo.busca_Aresta(i, matrizEuclidianas[i][j].getId()) == False):
+                grafo.nova_Aresta(i, matrizEuclidianas[i][j].getId(), matrizEuclidianas[i][j].getDistancia())
+            if(grafo.busca_Aresta(matrizEuclidianas[i][j].getId(), i) == False):
+                grafo.nova_Aresta(matrizEuclidianas[i][j].getId(), i, matrizEuclidianas[i][j].getDistancia())
 
-    #grafo.imprime_grafo()
 
-    grafo.bfs(grafo.busca_Vertice(1))
+    grafo.imprime_grafo()
 
-
+    print(grafo.bfs(1,6))
 
 if __name__ == '__main__':
     main()

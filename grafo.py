@@ -26,58 +26,21 @@ class Grafo:
         else:
             print("Um do Vertice ou ambos são invalidos")
 
-    
+    def busca_Aresta(self, origem, destino):
+        vertice = self.busca_Vertice(origem)
+        for aux in vertice.getListaArestas():
+            if(destino == aux.getDestino().getId()):
+                return True
+        return False
 
     def imprime_grafo(self):
+        aux = "oi"
         for vertice in self.lista_Vertices:
-            print(vertice.getId(), "->")
+            aux = ""+str(vertice.getId())+"->"
             for aresta in vertice.getListaArestas():
-                print(aresta.getDestino().getId()," - ")
-            print("\n")
+                aux += ""+str(aresta.getDestino().getId())+" - "
+            print(aux)
 
-    def bfs(self, start: int) -> list:
-        """Executa a busca em largura a partir do vértice start
-        Args:
-            start (int): vértice start
-        Returns:
-            list: lista com a ordem de vértices visitados 
-        """
-        fila = deque()
-        fila.append(start)
-        visitados = []
-        visitados.append(start)
-
-        while fila:
-            u = fila.popleft()
-
-            for v in self.lista_Vertices[u]:
-                if v not in visitados:
-                    fila.append(v)
-                    visitados.append(v)
-
-        return visitados
-
-    def dfs(self, start: int) -> list:
-        """Executa a busca em profundidade a partir do vértice start
-        Args:
-            start (int): vértice start
-        Returns:
-            list: lista com a ordem de vértices visitados 
-        """
-        visitados = []
-        visitados.append(start)
-        pilha = [start]
-
-        while pilha:
-            u = pilha.pop()
-
-            if u not in visitados:
-                visitados.append(u)
-
-            for v in self.adj[u][::-1]:
-                if v not in visitados:
-                    pilha.append(v)
-
-        return visitados
+    
 
    
