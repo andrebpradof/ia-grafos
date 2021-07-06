@@ -1,6 +1,6 @@
 from collections import deque
 
-class BuscaLargura:
+class BuscaLargura():
 
     def start(grafo, inicio, fim):
         fila = deque()

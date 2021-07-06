@@ -9,11 +9,21 @@ class BuscaBestFirst():
             dy = abs(objetivo.getY() - vertice.getY())
             vertice.setHeuristica(math.sqrt(pow(dx, 2) + pow(dy, 2)))
 
+    def cria_caminho(percurso, inicio, alvo):
+        atual = percurso[alvo]
+        caminho = [alvo]
+        while atual != inicio:
+            caminho.append(atual)
+            atual = percurso[atual]
+        caminho.append(inicio)
+        saida = caminho[::-1] #inverte a listas
+        return saida
 
     def busca(self, grafo, inicio, alvo):
         objetivo = grafo.busca_Vertice(alvo)
         self.heuristica(grafo, objetivo)
         visited = [0] * len(grafo.lista_Vertices)
+        caminho = [-1] * len(grafo.lista_Vertices)
         visited[inicio] = 1
 
         pq = PriorityQueue()
@@ -22,15 +32,15 @@ class BuscaBestFirst():
             atual = pq.get()[1]
             print(atual, end=" ")
             if atual == alvo:
-                #print(sucessores)
                 break
-    
             for vertice in grafo.busca_Vertice(atual).lista_Arestas:
                 distancia = vertice.getDestino().getHeuristica()
                 if visited[vertice.getDestino().getId()] == 0:
-                    #sucessores[vertice] = atual
+                    caminho[vertice] = atual
                     visited[vertice.getDestino().getId()] = 1
                     pq.put((distancia, vertice.getDestino().getId()))
         print()
+        saida = self.cria_caminho(caminho, inicio, alvo)
+        return saida
 
     

@@ -68,7 +68,7 @@ def main():
 
     #BuscaBestFirst().busca(grafo, 1, 6)
 
-    print(BuscaLargura.start(grafo,1,5))
+    print(BuscaLargura().start(grafo,1,5))
     print(BuscaProfundidade().start(grafo, 1,5))
 
 if __name__ == '__main__':

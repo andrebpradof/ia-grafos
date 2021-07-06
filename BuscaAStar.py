@@ -8,6 +8,16 @@ class BuscaAStar():
             dx = abs(objetivo.getX() - vertice.getX())
             dy = abs(objetivo.getY() - vertice.getY())
             vertice.setHeuristica(math.sqrt(pow(dx, 2) + pow(dy, 2)))
+
+    def cria_caminho(percurso, inicio, alvo):
+        atual = percurso[alvo]
+        caminho = [alvo]
+        while atual != inicio:
+            caminho.append(atual)
+            atual = percurso[atual]
+        caminho.append(inicio)
+        saida = caminho[::-1] #inverte a listas
+        return saida
     
     def busca(self, grafo, inicio, alvo):
         f = [ 0 for i in range(len(grafo)) ]
