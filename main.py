@@ -28,12 +28,12 @@ class Euclidianas:
         self.id = id
 
 def main():
-    numVertices = 10
+    numVertices = 50
     k = 3
 
     grafo = Grafo()
 
-    random.seed(7)
+    random.seed(5)
 
     for i in range(numVertices):
         x = random.randrange(1,numVertices)
@@ -64,8 +64,9 @@ def main():
 
 
     grafo.imprime_grafo()
+    print()
 
-    print(grafo.bfs(1,6))
+    BuscaBestFirst().busca(grafo, 1, 6)
 
 if __name__ == '__main__':
     main()

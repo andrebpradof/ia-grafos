@@ -4,6 +4,7 @@ class Vertice():
         self.x = x
         self.y = y
         self.visitado = False
+        self.heuristica = 0
         self.lista_Arestas = []
 
 
@@ -39,3 +40,9 @@ class Vertice():
 
     def addAresta(self, aresta):
         self.lista_Arestas.append(aresta)
+
+    def setHeuristica(self,valor):
+        self.heuristica = valor
+
+    def getHeuristica(self):
+        return self.heuristica

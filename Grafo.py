@@ -1,6 +1,6 @@
 from Vertice import Vertice
 from Aresta import Aresta
-from collections import deque
+
 
 class Grafo:
     def __init__(self, direcionado=False):
