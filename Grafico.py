@@ -19,7 +19,7 @@ class Grafico():
         for i in range(len(g.vs)):
             g.vs[i]["id"]= i
             g.vs[i]["label"]= str(i)
-            g.vs[i]["coordinates"] = (grafo.busca_Vertice(i).getX(), grafo.busca_Vertice(i).getY())
+            g.vs[i]["coordinates"] = (grafo.lista_Vertices[i].getX(), grafo.lista_Vertices[i].getY())
 
             if i in caminho:
                 color[i] = 'red'
@@ -32,7 +32,7 @@ class Grafico():
         g.vs['color'] = color
 
         for i in range(numVertices):
-            for a in grafo.busca_Vertice(i).getListaArestas():
+            for a in grafo.lista_Vertices[i].getListaArestas():
                 v = a.getDestino().getId()
                 p = a.getPeso()
 

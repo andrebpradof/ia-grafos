@@ -12,7 +12,7 @@ class BuscaLargura():
             vert = fila.popleft()
             if vert == fim:
                 break
-            for a in grafo.busca_Vertice(vert).getListaArestas():
+            for a in grafo.lista_Vertices[vert].getListaArestas():
                 vizinho = a.getDestino().getId()
                 if vizinho not in visitas:
                     visitas.add(vizinho)
