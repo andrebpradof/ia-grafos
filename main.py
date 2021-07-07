@@ -31,12 +31,12 @@ class Euclidianas:
         self.id = id
 
 def main():
-    numVertices = 5000    # Total de vertices
+    numVertices = 500    # Total de vertices
     k = 3                 # Parametro K
     grafo = Grafo()       
     random.seed(9)       # Semente para gerar os numeros aleatorios constantes
-    inicio = 356           # Vertice de inicio
-    alvo = 4454           # Vertice que sera buscado
+    inicio = 101           # Vertice de inicio
+    alvo = 495           # Vertice que sera buscado
 
     # Inicializa as coordenadas aleatorias dos vertices
     for i in range(numVertices):
@@ -44,6 +44,7 @@ def main():
         y = random.randrange(1,numVertices)
         vertice = Vertice(i, x, y)
         grafo.novo_Vertice(vertice)
+
     
     matrizEuclidianas = np.empty((numVertices,numVertices), dtype=object)
 
@@ -76,50 +77,51 @@ def main():
     trajeto1 = BuscaLargura.busca(grafo,inicio,alvo)
     tf = time.time() - t
     print(">> Tempo: ",tf)
-    #print(">> Trajeto: ", trajeto1)
+    print(">> Trajeto: ", trajeto1)
     print()
     
-    Imagem.start(grafo,numVertices, trajeto1, inicio, alvo, 'graph-largura.png')
+    Imagem.start(grafo,numVertices, trajeto1, inicio, alvo, 'grafo_'+str(numVertices)+'_'+str(k)+'_larg.png')
 
+    # Comentar para v > 2000
     print("**** Busca em profundidade ****")
     t = time.time()
     trajeto2 = BuscaProfundidade().start(grafo, inicio,alvo)
     tf = time.time() - t
     print(">> Tempo: ",tf)
-    #print(">> Trajeto: ", trajeto2)
+    print(">> Trajeto: ", trajeto2)
     print()
 
-    Imagem.start(grafo,numVertices, trajeto2, inicio, alvo, 'graph-profundidade.png')
+    Imagem.start(grafo,numVertices, trajeto2, inicio, alvo, 'grafo_'+str(numVertices)+'_'+str(k)+'_prof.png')
 
     print("**** Busca Best First ****")
     t = time.time()
     trajeto3 = BuscaBestFirst().busca(grafo, inicio, alvo)
     tf = time.time() - t
     print(">> Tempo: ",tf)
-    #print(">> Trajeto: ", trajeto3)
+    print(">> Trajeto: ", trajeto3)
     print()
 
-    Imagem.start(grafo,numVertices, trajeto3, inicio, alvo, 'graph-best-first.png')
+    Imagem.start(grafo,numVertices, trajeto3, inicio, alvo, 'grafo_'+str(numVertices)+'_'+str(k)+'_best.png')
 
     print("**** Busca A ****")
     t = time.time()
     trajeto4 = BuscaA().busca(grafo, inicio, alvo)
     tf = time.time() - t
     print(">> Tempo: ",tf)
-    #print(">> Trajeto: ", trajeto4)
+    print(">> Trajeto: ", trajeto4)
     print()
 
-    Imagem.start(grafo,numVertices, trajeto4, inicio, alvo, 'graph-a.png')
+    Imagem.start(grafo,numVertices, trajeto4, inicio, alvo, 'grafo_'+str(numVertices)+'_'+str(k)+'_a.png')
 
     print("**** Busca A-Star ****")
     t = time.time()
     trajeto5 = BuscaAStar().busca(grafo, inicio, alvo)
     tf = time.time() - t
     print(">> Tempo: ",tf)
-    #print(">> Trajeto: ", trajeto5)
+    print(">> Trajeto: ", trajeto5)
     print()
 
-    Imagem.start(grafo,numVertices, trajeto5, inicio, alvo, 'graph-a-star.png')
+    Imagem.start(grafo,numVertices, trajeto5, inicio, alvo, 'grafo_'+str(numVertices)+'_'+str(k)+'_a+.png.png')
 
 if __name__ == '__main__':
     main()
