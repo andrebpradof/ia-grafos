@@ -5,6 +5,7 @@ from BuscaProfundidade import BuscaProfundidade
 from BuscaBestFirst import BuscaBestFirst
 from BuscaA import BuscaA
 from BuscaAStar import BuscaAStar
+from igraph import *
 import random
 import math
 import numpy as np
@@ -68,7 +69,35 @@ def main():
 
     #BuscaBestFirst().busca(grafo, 1, 6)
 
-    print(BuscaLargura().start(grafo,1,5))
+    print(BuscaLargura.start(grafo,1,5))
+
+    g = Graph(directed=False)
+    g.add_vertices(numVertices)
+
+    # Add ids and labels to vertices
+    for i in range(len(g.vs)):
+        g.vs[i]["id"]= i
+        g.vs[i]["label"]= str(i)
+
+    edges = []
+    weights = []
+
+    for i in range(numVertices):
+        for a in grafo.busca_Vertice(i).getListaArestas():
+            v = a.getDestino().getId()
+            p = a.getPeso()
+            if (v,i) not in edges:
+                edges.append((i,v))
+                weights.append(p)
+    
+    print(edges)
+    print(weights)
+
+    g.add_edges(edges)
+    g.es['weight'] = weights
+
+    plot(g)
+
     print(BuscaProfundidade().start(grafo, 1,5))
 
 if __name__ == '__main__':
