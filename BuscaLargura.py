@@ -3,22 +3,25 @@ from collections import deque
 class BuscaLargura():
 
     def busca(grafo, inicio, fim):
-        fila = deque()
-        fila.append(inicio)
-        visitados = []
 
-        visitados.append(inicio)
+        fila = deque([inicio])
+        visitas = {inicio}
+        caminho = {}
 
-        if inicio != fim:
-            while len(fila) > 0:
-                u = fila.popleft()
-                for a in grafo.busca_Vertice(u).getListaArestas():
-                    v = a.getDestino().getId()
-                    if v not in visitados:
-                        visitados.append(v)
-                        if v == fim:
-                            return visitados
-                        fila.append(v); 
-            return -1
-        else:
-            return visitados
+        while fila:
+            vert = fila.popleft()
+            if vert == fim:
+                break
+            for a in grafo.busca_Vertice(vert).getListaArestas():
+                vizinho = a.getDestino().getId()
+                if vizinho not in visitas:
+                    visitas.add(vizinho)
+                    caminho[vizinho] = vert
+                    fila.append(vizinho)
+        path = [fim]
+        while path[-1] != inicio:
+            last_node = path[-1]
+            next_node = caminho[last_node]
+            path.append(next_node)
+
+        return path[::-1]

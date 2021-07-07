@@ -4,6 +4,8 @@ from igraph import *
 class Grafico():
     def start(grafo, numVertices, inicio, fim, caminho, nome_img):
         
+        size_v = 0
+
         weights = []
         edges = []
 
@@ -17,11 +19,12 @@ class Grafico():
         for i in range(len(g.vs)):
             g.vs[i]["id"]= i
             g.vs[i]["label"]= str(i)
+            g.vs[i]["coordinates"] = (grafo.busca_Vertice(i).getX(), grafo.busca_Vertice(i).getY())
 
             if i in caminho:
                 color[i] = 'red'
             else:
-                color[i] = 'blue'
+                color[i] = 'white'
 
             if i == inicio or i == fim:
                 color[i] = 'green'
@@ -32,11 +35,29 @@ class Grafico():
             for a in grafo.busca_Vertice(i).getListaArestas():
                 v = a.getDestino().getId()
                 p = a.getPeso()
+
+                size_v = size_v+1
+
                 if (v,i) not in edges:
                     edges.append((i,v))
                     weights.append(p)
-                    color_es.append('red')
+                    color_es.append('black')
         
+        anterior = -1
+
+        for j in caminho:
+            if anterior == -1:
+                anterior = j
+            else:
+                #print((anterior,j),'\n')
+                if (anterior,j) in edges:
+                    local = edges.index((anterior,j)) 
+                    color_es[local] = 'red'
+                elif (j,anterior) in edges:
+                    local = edges.index((j,anterior)) 
+                    color_es[local] = 'red'
+                anterior = j
+
         g.add_edges(edges)
         g.es['weight'] = weights
         g.es['color'] = color_es
@@ -46,6 +67,7 @@ class Grafico():
         visual_style["bbox"] = (2000,2000)
         visual_style["margin"] = 10
 
+        visual_style["edge_width"] = 3
         # # Set vertex size
         # visual_style["vertex_size"] = 45
         # # Set vertex lable size
