@@ -9,7 +9,7 @@ class BuscaAStar():
             dy = abs(objetivo.getY() - vertice.getY())
             vertice.setHeuristica(math.sqrt(pow(dx, 2) + pow(dy, 2)))
 
-    def cria_caminho(percurso, inicio, alvo):
+    def cria_caminho(self, percurso, inicio, alvo):
         atual = percurso[alvo]
         caminho = [alvo]
         while atual != inicio:
@@ -20,30 +20,35 @@ class BuscaAStar():
         return saida
     
     def busca(self, grafo, inicio, alvo):
-        f = [ 0 for i in range(len(grafo)) ]
-        g = [ 0 for i in range(len(grafo)) ]
 
         objetivo = grafo.busca_Vertice(alvo)
         self.heuristica(grafo, objetivo)
+        caminho = [-1] * len(grafo.lista_Vertices)
 
-        visited = [0] * len(grafo)
-        visited[inicio] = 1
+        f = [ 0 for i in range(len(grafo.lista_Vertices)) ]
+        g = [ 0 for i in range(len(grafo.lista_Vertices)) ]
+
+        visitados = [0] * len(grafo.lista_Vertices)
+        visitados[inicio] = 1
 
         pq = PriorityQueue()
         pq.put((0, inicio))
         while pq.empty() == 0:
             atual = pq.get()[1]
-            print(u, end=" ")
+            print(atual, end=" ")
             if atual == alvo:
                 break
-    
+
             for vertice in grafo.busca_Vertice(atual).lista_Arestas:
-                distancia = g[atual] + grafo[atual][vertice] + h[vertice]
+                distancia = g[atual] + vertice.getPeso() + vertice.getDestino().getHeuristica()
 
-                if visited[vertice] == 0:
-                    g[vertice] = g[atual] + grafo[atual][vertice]
-                    f[vertice] = distancia
+                if visitados[vertice.getDestino().getId()] == 0:
+                    g[vertice.getDestino().getId()] = g[atual] + vertice.getPeso()
+                    f[vertice.getDestino().getId()] = distancia
 
-                    sucessores[vertice] = atual
-                    visited[vertice] = 1
-                    pq.put((distancia, vertice))
+                    caminho[vertice.getDestino().getId()] = atual
+                    visitados[vertice.getDestino().getId()] = 1
+                    pq.put((distancia, vertice.getDestino().getId()))
+        print()
+        saida = self.cria_caminho(caminho, inicio, alvo)
+        return saida
