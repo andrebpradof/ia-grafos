@@ -21,7 +21,7 @@ class BuscaAStar():
     
     def busca(self, grafo, inicio, alvo):
 
-        objetivo = grafo.busca_Vertice(alvo)
+        objetivo = grafo.lista_Vertices[alvo]
         self.heuristica(grafo, objetivo)
         caminho = [-1] * len(grafo.lista_Vertices)
 
@@ -38,7 +38,7 @@ class BuscaAStar():
             if atual == alvo:
                 break
 
-            for vertice in grafo.busca_Vertice(atual).lista_Arestas:
+            for vertice in grafo.lista_Vertices[atual].lista_Arestas:
                 distancia = g[atual] + vertice.getPeso() + vertice.getDestino().getHeuristica()
 
                 if visitados[vertice.getDestino().getId()] == 0:

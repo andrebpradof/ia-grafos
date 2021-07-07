@@ -19,15 +19,15 @@ class Grafo:
             return None
 
     def nova_Aresta(self, origem, destino, peso):  # Método recebe dois identificadores
-        origem_aux = self.busca_Vertice(origem)
-        destino_aux = self.busca_Vertice(destino)
+        origem_aux = self.lista_Vertices[origem]
+        destino_aux = self.lista_Vertices[destino]
         if (origem_aux is not None) and (destino_aux is not None):
             origem_aux.addAresta(Aresta(destino_aux, peso))
         else:
             print("Um do Vertice ou ambos são invalidos")
 
     def busca_Aresta(self, origem, destino):
-        vertice = self.busca_Vertice(origem)
+        vertice = self.lista_Vertices[origem]
         for aux in vertice.getListaArestas():
             if(destino == aux.getDestino().getId()):
                 return True

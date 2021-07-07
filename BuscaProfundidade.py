@@ -14,7 +14,7 @@ class BuscaProfundidade():
         if inicio == fim:
             return self.caminho
         else:
-            for j in grafo.busca_Vertice(inicio).getListaArestas():
+            for j in grafo.lista_Vertices[inicio].getListaArestas():
                 nodo = j.getDestino().getId()
                 if nodo not in self.visitados:
                     volta = self.DFS(grafo, nodo, fim)

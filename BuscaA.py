@@ -3,6 +3,7 @@ import math
 
 class BuscaA():
     
+    # Calculo da distancia entro o vertice ao ponto final
     def heuristica(self, grafo, objetivo):
         for vertice in grafo.lista_Vertices:
             dx = abs(objetivo.getX() - vertice.getX())
@@ -21,7 +22,7 @@ class BuscaA():
     
     def busca(self, grafo, inicio, alvo):
 
-        objetivo = grafo.busca_Vertice(alvo)
+        objetivo = grafo.lista_Vertices[alvo]
         self.heuristica(grafo, objetivo)
         caminho = [-1] * len(grafo.lista_Vertices)
 
@@ -38,7 +39,7 @@ class BuscaA():
             if atual == alvo:
                 break
 
-            for vertice in grafo.busca_Vertice(atual).lista_Arestas:
+            for vertice in grafo.lista_Vertices[atual].lista_Arestas:
                 distancia = g[atual] + vertice.getPeso() + vertice.getDestino().getHeuristica()
 
                 if visitados[vertice.getDestino().getId()] == 0:

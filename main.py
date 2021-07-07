@@ -9,9 +9,9 @@ import random
 import math
 import numpy as np
 import time
-
 from Grafico import Grafico
 
+# Para o calculo das distancias euclidianas
 class Euclidianas:
     def __init__(self,id,distancia):
         self.id = id
@@ -30,13 +30,14 @@ class Euclidianas:
         self.id = id
 
 def main():
-    numVertices = 20
-    k = 3
-    grafo = Grafo()
-    random.seed(9)
-    inicio = 1
-    alvo = 10
+    numVertices = 500    # Total de vertices
+    k = 3                 # Parametro K
+    grafo = Grafo()       
+    random.seed(3)       # Semente para gerar os numeros aleatorios constantes
+    inicio = 1           # Vertice de inicio
+    alvo = 820           # Vertice que sera buscado
 
+    # Inicializa as coordenadas aleatorias dos vertices
     for i in range(numVertices):
         x = random.randrange(1,numVertices)
         y = random.randrange(1,numVertices)
@@ -47,12 +48,12 @@ def main():
 
 
     for i in range(numVertices):
-        vertice_i = grafo.busca_Vertice(i)
+        vertice_i = grafo.lista_Vertices[i]
         for j in range(numVertices):
             if i == j:
                 matrizEuclidianas[i][j] = Euclidianas(j,np.inf)
             else:
-                vertice_j = grafo.busca_Vertice(j)
+                vertice_j = grafo.lista_Vertices[j]
                 valor = math.sqrt(math.pow(vertice_i.getX() - vertice_j.getX(),2) + math.pow(vertice_i.getY() - vertice_j.getY(),2))
                 matrizEuclidianas[i][j] = Euclidianas(j,valor)
 
@@ -64,55 +65,60 @@ def main():
             if(grafo.busca_Aresta(matrizEuclidianas[i][j].getId(), i) == False):
                 grafo.nova_Aresta(matrizEuclidianas[i][j].getId(), i, matrizEuclidianas[i][j].getDistancia())
 
+    
+    #grafo.imprime_grafo()
+    
+    print("Grafo gerado")
+
     print("**** Busca em Largura ****")
     t = time.time()
     trajeto1 = BuscaLargura.busca(grafo,inicio,alvo)
     tf = time.time() - t
-    print(">> Tempo: {:.4f}".format(tf))
-    print(">> Trajeto: ", trajeto1)
+    print(">> Tempo: ",tf)
+    #print(">> Trajeto: ", trajeto1)
     print()
     
-    Grafico.start(grafo, numVertices, inicio , alvo, trajeto1,'graph-largura.png')
+    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto1,'graph-largura.png')
 
     print("**** Busca em profundidade ****")
     t = time.time()
     trajeto2 = BuscaProfundidade().start(grafo, inicio,alvo)
     tf = time.time() - t
-    print(">> Tempo: {:.4f}".format(tf))
-    print(">> Trajeto: ", trajeto2)
+    print(">> Tempo: ",tf)
+    #print(">> Trajeto: ", trajeto2)
     print()
 
-    Grafico.start(grafo, numVertices, inicio , alvo, trajeto2,'graph-profundidade.png')
+    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto2,'graph-profundidade.png')
 
     print("**** Busca Best First ****")
     t = time.time()
     trajeto3 = BuscaBestFirst().busca(grafo, inicio, alvo)
     tf = time.time() - t
-    print(">> Tempo: {:.4f}".format(tf))
-    print(">> Trajeto: ", trajeto3)
+    print(">> Tempo: ",tf)
+    #print(">> Trajeto: ", trajeto3)
     print()
 
-    Grafico.start(grafo, numVertices, inicio , alvo, trajeto3,'graph-best-first.png')
+    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto3,'graph-best-first.png')
 
     print("**** Busca A ****")
     t = time.time()
     trajeto4 = BuscaA().busca(grafo, inicio, alvo)
     tf = time.time() - t
-    print(">> Tempo: {:.4f}".format(tf))
-    print(">> Trajeto: ", trajeto4)
+    print(">> Tempo: ",tf)
+    #print(">> Trajeto: ", trajeto4)
     print()
 
-    Grafico.start(grafo, numVertices, inicio , alvo, trajeto4,'graph-a.png')
+    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto4,'graph-a.png')
 
     print("**** Busca A-Star ****")
     t = time.time()
     trajeto5 = BuscaAStar().busca(grafo, inicio, alvo)
     tf = time.time() - t
-    print(">> Tempo: {:.4f}".format(tf))
-    print(">> Trajeto: ", trajeto5)
+    print(">> Tempo: ",tf)
+    #print(">> Trajeto: ", trajeto5)
     print()
 
-    Grafico.start(grafo, numVertices, inicio , alvo, trajeto5,'graph-a-star.png')
+    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto5,'graph-a-star.png')
 
 if __name__ == '__main__':
     main()

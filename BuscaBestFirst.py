@@ -20,7 +20,7 @@ class BuscaBestFirst():
         return saida
 
     def busca(self, grafo, inicio, alvo):
-        objetivo = grafo.busca_Vertice(alvo)
+        objetivo = grafo.lista_Vertices[alvo]
         self.heuristica(grafo, objetivo)
         visitados = [0] * len(grafo.lista_Vertices)
         caminho = [-1] * len(grafo.lista_Vertices)
@@ -32,7 +32,7 @@ class BuscaBestFirst():
             atual = pq.get()[1]
             if atual == alvo:
                 break
-            for vertice in grafo.busca_Vertice(atual).lista_Arestas:
+            for vertice in grafo.lista_Vertices[atual].lista_Arestas:
                 distancia = vertice.getDestino().getHeuristica()
                 if visitados[vertice.getDestino().getId()] == 0:
                     caminho[vertice.getDestino().getId()] = atual
