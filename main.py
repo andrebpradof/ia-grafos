@@ -5,11 +5,12 @@ from BuscaProfundidade import BuscaProfundidade
 from BuscaBestFirst import BuscaBestFirst
 from BuscaA import BuscaA
 from BuscaAStar import BuscaAStar
-from igraph import *
 import random
 import math
 import numpy as np
+import time
 
+from Grafico import Grafico
 
 class Euclidianas:
     def __init__(self,id,distancia):
@@ -29,12 +30,12 @@ class Euclidianas:
         self.id = id
 
 def main():
-    numVertices = 10
+    numVertices = 20
     k = 3
-
     grafo = Grafo()
-
     random.seed(9)
+    inicio = 1
+    alvo = 10
 
     for i in range(numVertices):
         x = random.randrange(1,numVertices)
@@ -63,42 +64,55 @@ def main():
             if(grafo.busca_Aresta(matrizEuclidianas[i][j].getId(), i) == False):
                 grafo.nova_Aresta(matrizEuclidianas[i][j].getId(), i, matrizEuclidianas[i][j].getDistancia())
 
-
-    #grafo.imprime_grafo()
-    #print()
-
-    #BuscaBestFirst().busca(grafo, 1, 6)
-
-    print(BuscaLargura.start(grafo,1,5))
-
-    g = Graph(directed=False)
-    g.add_vertices(numVertices)
-
-    # Add ids and labels to vertices
-    for i in range(len(g.vs)):
-        g.vs[i]["id"]= i
-        g.vs[i]["label"]= str(i)
-
-    edges = []
-    weights = []
-
-    for i in range(numVertices):
-        for a in grafo.busca_Vertice(i).getListaArestas():
-            v = a.getDestino().getId()
-            p = a.getPeso()
-            if (v,i) not in edges:
-                edges.append((i,v))
-                weights.append(p)
+    print("**** Busca em Largura ****")
+    t = time.time()
+    trajeto1 = BuscaLargura.busca(grafo,inicio,alvo)
+    tf = time.time() - t
+    print(">> Tempo: {:.4f}".format(tf))
+    print(">> Trajeto: ", trajeto1)
+    print()
     
-    print(edges)
-    print(weights)
+    Grafico.start(grafo, numVertices, inicio , alvo, trajeto1,'graph-largura.png')
 
-    g.add_edges(edges)
-    g.es['weight'] = weights
+    print("**** Busca em profundidade ****")
+    t = time.time()
+    trajeto2 = BuscaProfundidade().start(grafo, inicio,alvo)
+    tf = time.time() - t
+    print(">> Tempo: {:.4f}".format(tf))
+    print(">> Trajeto: ", trajeto2)
+    print()
 
-    plot(g)
+    Grafico.start(grafo, numVertices, inicio , alvo, trajeto2,'graph-profundidade.png')
 
-    print(BuscaProfundidade().start(grafo, 1,5))
+    print("**** Busca Best First ****")
+    t = time.time()
+    trajeto3 = BuscaBestFirst().busca(grafo, inicio, alvo)
+    tf = time.time() - t
+    print(">> Tempo: {:.4f}".format(tf))
+    print(">> Trajeto: ", trajeto3)
+    print()
+
+    Grafico.start(grafo, numVertices, inicio , alvo, trajeto3,'graph-best-first.png')
+
+    print("**** Busca A ****")
+    t = time.time()
+    trajeto4 = BuscaA().busca(grafo, inicio, alvo)
+    tf = time.time() - t
+    print(">> Tempo: {:.4f}".format(tf))
+    print(">> Trajeto: ", trajeto4)
+    print()
+
+    Grafico.start(grafo, numVertices, inicio , alvo, trajeto4,'graph-a.png')
+
+    print("**** Busca A-Star ****")
+    t = time.time()
+    trajeto5 = BuscaAStar().busca(grafo, inicio, alvo)
+    tf = time.time() - t
+    print(">> Tempo: {:.4f}".format(tf))
+    print(">> Trajeto: ", trajeto5)
+    print()
+
+    Grafico.start(grafo, numVertices, inicio , alvo, trajeto5,'graph-a-star.png')
 
 if __name__ == '__main__':
     main()

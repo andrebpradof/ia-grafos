@@ -35,7 +35,6 @@ class BuscaAStar():
         pq.put((0, inicio))
         while pq.empty() == 0:
             atual = pq.get()[1]
-            print(atual, end=" ")
             if atual == alvo:
                 break
 
@@ -49,6 +48,5 @@ class BuscaAStar():
                     caminho[vertice.getDestino().getId()] = atual
                     visitados[vertice.getDestino().getId()] = 1
                     pq.put((distancia, vertice.getDestino().getId()))
-        print()
         saida = self.cria_caminho(caminho, inicio, alvo)
         return saida

@@ -2,7 +2,7 @@ from collections import deque
 
 class BuscaLargura():
 
-    def start(grafo, inicio, fim):
+    def busca(grafo, inicio, fim):
         fila = deque()
         fila.append(inicio)
         visitados = []
