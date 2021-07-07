@@ -19,7 +19,7 @@ class Grafico():
         for i in range(len(g.vs)):
             g.vs[i]["id"]= i
             g.vs[i]["label"]= str(i)
-            g.vs[i]["coordinates"] = (grafo.lista_Vertices[i].getX(), grafo.lista_Vertices[i].getY())
+            #g.vs[i]["coordinates"] = (grafo.lista_Vertices[i].getX(), grafo.lista_Vertices[i].getY())
 
             if i in caminho:
                 color[i] = 'red'

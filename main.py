@@ -10,6 +10,7 @@ import math
 import numpy as np
 import time
 from Grafico import Grafico
+from Imagem import Imagem
 
 # Para o calculo das distancias euclidianas
 class Euclidianas:
@@ -30,12 +31,12 @@ class Euclidianas:
         self.id = id
 
 def main():
-    numVertices = 500    # Total de vertices
+    numVertices = 5000    # Total de vertices
     k = 3                 # Parametro K
     grafo = Grafo()       
-    random.seed(3)       # Semente para gerar os numeros aleatorios constantes
-    inicio = 1           # Vertice de inicio
-    alvo = 820           # Vertice que sera buscado
+    random.seed(9)       # Semente para gerar os numeros aleatorios constantes
+    inicio = 356           # Vertice de inicio
+    alvo = 4454           # Vertice que sera buscado
 
     # Inicializa as coordenadas aleatorias dos vertices
     for i in range(numVertices):
@@ -78,7 +79,7 @@ def main():
     #print(">> Trajeto: ", trajeto1)
     print()
     
-    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto1,'graph-largura.png')
+    Imagem.start(grafo,numVertices, trajeto1, inicio, alvo, 'graph-largura.png')
 
     print("**** Busca em profundidade ****")
     t = time.time()
@@ -88,7 +89,7 @@ def main():
     #print(">> Trajeto: ", trajeto2)
     print()
 
-    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto2,'graph-profundidade.png')
+    Imagem.start(grafo,numVertices, trajeto2, inicio, alvo, 'graph-profundidade.png')
 
     print("**** Busca Best First ****")
     t = time.time()
@@ -98,7 +99,7 @@ def main():
     #print(">> Trajeto: ", trajeto3)
     print()
 
-    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto3,'graph-best-first.png')
+    Imagem.start(grafo,numVertices, trajeto3, inicio, alvo, 'graph-best-first.png')
 
     print("**** Busca A ****")
     t = time.time()
@@ -108,7 +109,7 @@ def main():
     #print(">> Trajeto: ", trajeto4)
     print()
 
-    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto4,'graph-a.png')
+    Imagem.start(grafo,numVertices, trajeto4, inicio, alvo, 'graph-a.png')
 
     print("**** Busca A-Star ****")
     t = time.time()
@@ -118,7 +119,7 @@ def main():
     #print(">> Trajeto: ", trajeto5)
     print()
 
-    #Grafico.start(grafo, numVertices, inicio , alvo, trajeto5,'graph-a-star.png')
+    Imagem.start(grafo,numVertices, trajeto5, inicio, alvo, 'graph-a-star.png')
 
 if __name__ == '__main__':
     main()
